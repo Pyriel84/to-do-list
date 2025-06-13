@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ToDoList</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body class="body">
+    <h1 class="title">
+        <img src="green-sticky-notes-to-do-signs-isolated-white-background-380506827.webp" alt="Green sticky notes to-do sign" />
+    </h1>
+    <ol id="todo-list">
+        <li></li>
+        <div class="div" style="display: none;">
+            <li id="todo-item-template">
+                <input type="checkbox" class="todo-checkbox">
+                <span class="todo-text"></span>
+                <button class="delete-button">Supprimer</button>
+            </li>
+        </div>
+    </ol>
+    <input type="text" id="todo-input" placeholder="Nouvelle tâche">
+    <button class="button" id="add-todo-button">Ajouter</button>
+    <script src="script.js"></script>
+</body>
+</html>

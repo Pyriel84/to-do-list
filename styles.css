@@ -1,0 +1,24 @@
+.title {
+    color: #333;
+    font-size: 2em;
+    margin-bottom: 20px;
+    text-align: center;
+    border-width: 2px;
+    border-style: solid;
+    border-color: #000000;
+    border-radius: 15px;
+    padding: auto;
+    margin: 20px auto;
+}
+img {
+    max-width: 200px;
+    height: auto;
+    display: block;
+    margin: 0 auto;
+}
+.button {
+    background-color: #e7e56d;
+    border-color: #000000;
+    border-radius: 5px;
+    cursor: pointer;
+}

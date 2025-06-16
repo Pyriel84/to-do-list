@@ -1,71 +1,61 @@
- // Variables simples
-        let taskCount = 0;
+// Variables simples
+const input = document.querySelector('.input');
+const addButton = document.querySelector('.addButton');
+const todoList = document.querySelector('.todoList');
+const toDos = [];
 
-        // Fonction pour ajouter une tâche
-        function addTask() {
-            const input = document.getElementById('newTask');
-            const text = input.value.trim();
-            
-            if (text === '') return;
-            
-            // Créer la tâche directement dans le HTML
-            const taskList = document.getElementById('taskList');
-            
-            // Supprimer le message vide si c'est la première tâche
-            if (taskCount === 0) {
-                taskList.innerHTML = '';
-            }
-            
-            // Créer l'élément tâche
-            const taskDiv = document.createElement('div');
-            taskDiv.className = 'task';
-            taskDiv.innerHTML = `
-                <input type="checkbox" onchange="toggleTask(this)">
-                <span class="task-text">${text}</span>
-                <button class="delete-btn" onclick="deleteTask(this)">✖</button>
-            `;
-            
-            taskList.appendChild(taskDiv);
-            
-            // Nettoyer et compter
-            input.value = '';
-            taskCount++;
-            updateCounter();
-        }
+// Fonctions
+function displayToDos() {
+    // Vider la liste avant de la recréer
+    todoList.innerHTML = '';
 
-        // Fonction pour marquer comme terminé
-        function toggleTask(checkbox) {
-            const task = checkbox.parentElement;
-            if (checkbox.checked) {
-                task.classList.add('completed');
-            } else {
-                task.classList.remove('completed');
-            }
-        }
+    // Gérer la visibilité du bouton "Vider la liste"
+    if (toDos.length > 0) {
+        controls.style.display = 'block';
+    } else {
+        controls.style.display = 'none';
+    }
+    
+    // Parcourir tous les éléments et les afficher
+    toDos.forEach((element, index) => {
+        const newElement = document.createElement('li');
+        newElement.innerHTML = `${element} <button onclick="removeToDoFromArray(${index})">Supprimer</button>`;
+        todoList.appendChild(newElement);
+    });
+}
 
-        // Fonction pour supprimer une tâche
-        function deleteTask(button) {
-            const task = button.parentElement;
-            task.remove();
-            taskCount--;
-            updateCounter();
-            
-            // Remettre le message vide si plus de tâches
-            if (taskCount === 0) {
-                document.getElementById('taskList').innerHTML = `
-                    <div class="empty-message">
-                        Aucune tâche pour le moment. Ajoutez-en une !
-                    </div>
-                `;
-            }
-        }
+function addToDoToArray() {
+    if (input.value.trim() !== '') {
+        toDos.push(input.value.trim());
+        input.value = ''; // vider l'input après l'ajout
+        displayToDos(); // Réafficher la liste mise à jour
+    }
+}
 
-        // Mettre à jour le compteur
-        function updateCounter() {
-            document.getElementById('counter').textContent = `${taskCount} tâche(s)`;
-        }
+function removeToDoFromArray(index) {
+    if (index >= 0 && index < toDos.length) {
+        toDos.splice(index, 1);
+        displayToDos(); // Réafficher la liste mise à jour
+    }
+}
 
-        // Ajouter avec la touche Entrée
-        document.getElementById('newTask').addEventListener('keypress', function(e) {
-            if (e.key === 'Enter') addTask();
-        });
+function emptyList() {
+    todoList.innerHTML = '';
+    toDos.length = 0; // vider l'array
+    displayToDos(); // Réafficher (liste vide)
+}
+
+// Event listeners
+addButton.addEventListener('click', () => {
+    addToDoToArray();
+});
+
+// Permettre d'ajouter avec la touche Entrée
+input.addEventListener('keypress', (element) => {
+    if (element.key === 'Enter') {
+        addToDoToArray();
+    }
+});
+
+// Affichage initial (liste vide)
+displayToDos();
